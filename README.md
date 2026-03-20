@@ -23,7 +23,7 @@ docker compose -f docker-compose-pg-source.yml -f docker-compose-datalakehouse.y
 ## postgres-source 
 Data producer with some test data
 
-'''
+```
 CREATE TABLE public.users (
 	id VARCHAR(10) PRIMARY KEY,
 	name VARCHAR(20) not null,
@@ -47,7 +47,7 @@ CREATE TABLE public.bookings (
 INSERT INTO public.bookings (booking_date, service_id, quantity, total_amount, user_id) VALUES ('2023-01-01', 101, 3, 450.00, 'U10001');
 INSERT INTO public.bookings (booking_date, service_id, quantity, total_amount, user_id) VALUES ('2023-02-01', 102, 1, 320.00, 'U10001');
 INSERT INTO public.bookings (booking_date, service_id, quantity, total_amount, user_id) VALUES ('2023-03-01', 103, 4, 720.00, 'U10002');
-'''
+```
 
 ## airbyte
 Create source, destination and connection

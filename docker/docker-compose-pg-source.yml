@@ -1,0 +1,23 @@
+services:
+  # Postgres source - backend simulated db being data producer
+  postgres-source: # use host.docker.internal in AB config if using different network then AB/K8s
+    image: postgres:16
+    container_name: postgres-source
+    environment:
+      POSTGRES_DB: abdb
+      POSTGRES_USER: ${POSTGRES_SOURCE_USER:-airbyte}
+      POSTGRES_PASSWORD: ${POSTGRS_SOURCE_PASSWORD:-airbyte}
+    ports:
+      - 5432:5432
+    # command: [ "postgres", "-c", "wal_level=logical" ] # CDC
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - kind # AB/K8s network
+
+networks:
+  kind:
+    external: true # use AB/K8s network
+     
+volumes:
+  postgres_data:

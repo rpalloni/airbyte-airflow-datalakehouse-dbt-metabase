@@ -1,0 +1,7 @@
+# dremio driver compatible
+FROM metabase/metabase:v0.51.3.4
+
+
+RUN mkdir -p /plugins && \
+    curl -L -o /plugins/dremio.metabase-driver.jar \
+    "https://github.com/Baoqi/metabase-dremio-driver/releases/download/1.5.0/dremio.metabase-driver.jar"

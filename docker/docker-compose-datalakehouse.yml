@@ -1,0 +1,63 @@
+services:
+     # Minio destination
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=password
+      - MINIO_DOMAIN=storage
+      - MINIO_REGION=eu-central-1
+      - MINIO_REGION_NAME=eu-central-1
+    command: ['server', '/data', '--console-address', ':9001', '--address', ':9000']
+    volumes:
+      - minio_data:/data
+    networks:
+      - kind # AB/K8s network
+
+  # Nessie Catalog Server
+  nessie:
+    image: projectnessie/nessie:0.76.6
+    container_name: nessie
+    ports:
+      - 19120:19120
+    user: root # allow storage persist
+    environment:
+      - NESSIE_CATALOG_SERVICE_S3_REGION=eu-central-1
+      - NESSIE_CATALOG_SERVICE_S3_ENDPOINT=http://minio:9000
+      - NESSIE_CATALOG_SERVICE_S3_PATH_STYLE_ACCESS=true # path style access enabled: minio:9000/bucket (S3 default to virtual host style: bucket.minio:9000)
+      - NESSIE_VERSION_STORE_TYPE=ROCKSDB # Persist catalog metadata in RocksDB (file-based) instead of default in-memory storage
+      - NESSIE_VERSION_STORE_PERSIST_ROCKS_DATABASE_PATH=/nessie/data
+    volumes:
+      - nessie_data:/nessie/data  
+    networks:
+      - kind
+
+  # Dremio Query Engine Server
+  dremio:
+    image: dremio/dremio-oss:26.0.0
+    container_name: dremio
+    ports:
+      - 9047:9047
+      - 31010:31010
+      - 32010:32010
+    environment:
+      - DREMIO_JAVA_SERVER_EXTRA_OPTS=-Dpaths.dist=file:///opt/dremio/data/dist # Dremio engine (-D) data stored in local FS
+      - DREMIO_JAVA_EXTRA_OPTS=-Dfs.s3a.path.style.access=true -Ddremio.s3.region=eu-central-1 # path style and region settings
+    volumes:
+      - dremio_data:/opt/dremio/data 
+    networks:
+      - kind
+
+
+networks:
+  kind:
+    external: true # use AB/K8s network
+     
+volumes:
+  minio_data:
+  nessie_data:
+  dremio_data:

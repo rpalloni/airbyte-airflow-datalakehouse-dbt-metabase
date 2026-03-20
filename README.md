@@ -78,6 +78,7 @@ Query data from the BI layer
 
 
 ### Dremio UI config
+```
 <Signin form>
 create admin profile in login form
 sources > add sources > Nessie
@@ -98,3 +99,4 @@ Connection Properties:
 * dremio.s3.compat: true (Compatibility mode for an S3 compatible storage)
 * dremio.s3.region: eu-central-1 (Explicitly sets the region for Dremio S3 client)
 - [ ] Uncheck "encrypt connection"
+```

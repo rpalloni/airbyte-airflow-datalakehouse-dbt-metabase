@@ -140,7 +140,7 @@ _Desired storage configuration method option:_
 [2] sources_and_spaces
 ```
 
-_profiles.yml_ dbt-dremio parameters define exactly where dbt will create tables and views and where unserlying data are stored. \
+_profiles.yml_ dbt-dremio parameters define exactly where dbt will create tables and views and where underlying data are stored. \
 Because Dremio separates logical metadata (Spaces) from the physical storage (Sources), these settings act as a map for dbt output:
 * `dremio_space`: this is the top level space in Dremio where dbt will create the virtual datasets.
 * `dremio_space_folder`: (optional) this allows to organize models into a specific folder within the space (`dremio_space/dremio_space_folder/model_xyz`)
@@ -150,7 +150,7 @@ Because Dremio separates logical metadata (Spaces) from the physical storage (So
 WARNING: if only using `view` materializations, dbt relies on the Space settings. If models are `materialized='table'` the `object_storage_source` settings become mandatory because Dremio needs to know where to physically write the tables.
 
 ### dbt config with catalog
-When using a catalog connected to storage instead of Dremio spaces, the logic for the parameters sightly differs: catalog acts as both the logical organisation and the physical organisation of the tables.
+When using a catalog connected to storage instead of Dremio spaces, the logic for the parameters slightly differs: catalog acts as both the logical AND the physical organisation of the tables.
 
 profiles dremio params config **with catalog**:
 ```

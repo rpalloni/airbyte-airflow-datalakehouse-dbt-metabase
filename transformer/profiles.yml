@@ -9,7 +9,7 @@ transformer:
       object_storage_path: "{{env_var('OBJECT_STORAGE_PATH')}}"
       user: "{{env_var('DREMIO_USER')}}"
       password: "{{env_var('DREMIO_PASSWORD')}}"
-      software_host: 127.0.0.1
+      software_host: dremio
       port: 9047
       threads: 1
       use_ssl: false
@@ -21,7 +21,7 @@ transformer:
       object_storage_path: "{{env_var('CI_OBJECT_STORAGE_PATH')}}"
       user: "{{env_var('CI_DREMIO_USER')}}"
       password: "{{env_var('CI_DREMIO_PASSWORD')}}"
-      software_host: 127.0.0.1
+      software_host: dremio
       port: 9047
       threads: 1
       use_ssl: false

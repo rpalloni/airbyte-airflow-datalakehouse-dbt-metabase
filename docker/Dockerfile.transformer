@@ -14,13 +14,12 @@ ENV PATH="/root/.local/bin:$PATH"
 WORKDIR /transformer
 
 # root dependency files for caching
-#COPY pyproject.toml uv.lock ./
-
-# copy dbt app
-# COPY transformer/ /transformer/
+COPY pyproject.toml uv.lock ./
 
 RUN uv sync --frozen --no-cache
 
-ENV PATH=".venv/bin:$PATH"
+ENV PATH="/transformer/.venv/bin:$PATH"
+
+COPY transformer/ /transformer/
 
 #CMD ["dbt", "run"]

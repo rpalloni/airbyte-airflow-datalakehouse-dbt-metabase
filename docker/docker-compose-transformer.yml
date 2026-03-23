@@ -1,8 +1,23 @@
 services:
   transformer:
     build:
-      context: .
-      dockerfile: Dockerfile.transformer
+      context: ..
+      dockerfile: docker/Dockerfile.transformer
     image: transformer:latest
     container_name: transformer
-    hostname: transformer
+    environment:
+      DREMIO_SPACE: ${DREMIO_SPACE}
+      DREMIO_SPACE_FOLDER: ${DREMIO_SPACE_FOLDER}
+      OBJECT_STORAGE_SOURCE: ${OBJECT_STORAGE_SOURCE}
+      OBJECT_STORAGE_PATH: ${OBJECT_STORAGE_PATH}
+      DREMIO_USER: ${DREMIO_USER}
+      DREMIO_PASSWORD: ${DREMIO_PASSWORD}
+    networks:
+      - kind
+    command: tail -f /dev/null # keep alive - comment when using airflow
+    # enter container to check dbt run ok
+    # docker compose -f docker/docker-compose-transformer.yml exec transformer bash
+    
+networks:
+  kind:
+    external: true # use AB/K8s network

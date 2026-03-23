@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: pg-data
+    schema: pg-data
+    tables:
+      - name: pg_users
+        description: "Postgres backend users data"
+      - name: pg_bookings
+        description: "Postgres backend bookings data"
+        

@@ -75,7 +75,10 @@ Configure table catalog and iceberg tables
 Query data from the BI layer
 <img width="1818" height="690" alt="image" src="https://github.com/user-attachments/assets/cd228618-bf33-4282-b077-eb9899c4967c" />
 
+## dbt
+Transformations on source data using Dremio query engine and stored in Minio
 
+###################################################################################################################################################################################################################################################
 
 ### Dremio UI config
 ```
@@ -100,3 +103,44 @@ Connection Properties:
 * dremio.s3.region: eu-central-1 (Explicitly sets the region for Dremio S3 client)
 - [ ] Uncheck "encrypt connection"
 ```
+
+### dbt config
+```
+uv add dbt-dremio
+dbt init transformer (a dremio account is needed for the setup)
+```
+
+_Which database would you like to use?_
+```
+[1] dremio
+[2] software_with_username_password
+software_host: 127.0.0.1
+port [9047]: 9047
+user (username): admin
+password (password): password1
+```
+_Desired storage configuration method option:_
+```
+[2] sources_and_spaces
+```
+
+_profiles.yml_ dbt-dremio parameters define exactly where dbt will create tables and views and where unserlying data are stored. \
+Because Dremio separates logical metadata (Spaces) from the physical storage (Sources), these settings act as a map for dbt output:
+* `dremio_space`: this is the top level space in Dremio where dbt will create the virtual datasets.
+* `dremio_space_folder`: (optional) this allows to organize models into a specific folder within the space (`dremio_space/dremio_space_folder/model_xyz`)
+* `object_storage_source`: name of the physical source already configured in the Dremio instance
+* `object_storage_path`: directory path within the storage where the data files will live (avoid writing everything in root repo)
+
+WARNING: if only using `view` materializations, dbt relies on the Space settings. If models are `materialized='table'` the `object_storage_source` settings become mandatory because Dremio needs to know where to physically write the tables.
+
+### dbt config with catalog
+When using a catalog connected to storage instead of Dremio spaces, the logic for the parameters sightly differs: catalog acts as both the logical organisation and the physical organisation of the tables.
+
+profiles dremio params config **with catalog**:
+```
+dremio_space: nessie              ---> in a catalog-first workflow, you want the views/tables to live in the same catalog as the source tables
+dremio_space_folder: transformer  ---> dbt will create this namespace in the source to host transformations views/tables
+object_storage_source: nessie     ---> dbt will use catalog (backed by storage) to manage the transformations physical iceberg tables
+object_storage_path: transformer  ---> defines the namespace where the physical iceberg tables will be registered (usually matches dremio_space_folder)
+```
+

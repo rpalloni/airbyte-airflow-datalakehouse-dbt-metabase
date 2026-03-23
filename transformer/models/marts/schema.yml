@@ -1,0 +1,24 @@
+version: 2
+
+models:
+   - name: dim_users
+     description: "Users dimension"
+     columns:
+       - name: user_id
+         description: "Unique user identifier as text"
+       - name: user_name
+         description: "Name of the user"
+       - name: created_ts
+         description: "User creation timestamp"
+       - name: sync_ts
+         description: "User data airbyte sync timestamp"
+         
+   - name: fct_bookings
+     description: "Booking facts"
+     columns:
+       - name: booking_id
+         description: "Unique booking identifier as bigint"
+       - name: booking_dt
+         description: "Date of the booking"
+       - name: sync_ts
+         description: "User data airbyte sync timestamp"

@@ -1,0 +1,15 @@
+transformer:
+  outputs:
+    dev:
+      type: dremio
+      dremio_space: nessie
+      dremio_space_folder: transformer
+      object_storage_source: nessie
+      object_storage_path: transformer
+      user: admin
+      password: password1
+      software_host: 127.0.0.1
+      port: 9047
+      threads: 1
+      use_ssl: false
+  target: dev

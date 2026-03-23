@@ -1,4 +1,4 @@
 .venv
 .env
-
-docker/plugins/
+.user.yml
+uv.lock

@@ -1,0 +1,94 @@
+[0m10:00:03.061145 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x761b27fbaa20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x761b256321e0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x761b276a5b20>]}
+
+
+============================== 10:00:03.119609 | 3be7fe1a-187b-4817-8538-fd772a342abd ==============================
+[0m10:00:03.119609 [info ] [MainThread]: Running with dbt=1.11.7
+[0m10:00:03.120674 [debug] [MainThread]: running dbt with arguments {'log_format': 'default', 'write_json': 'True', 'send_anonymous_usage_stats': 'True', 'empty': 'None', 'cache_selected_only': 'False', 'use_experimental_parser': 'False', 'introspect': 'True', 'static_parser': 'True', 'warn_error': 'None', 'printer_width': '80', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'quiet': 'False', 'debug': 'False', 'version_check': 'True', 'fail_fast': 'False', 'partial_parse': 'True', 'use_colors': 'True', 'target_path': 'None', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'profiles_dir': '/home/roberto/.dbt', 'log_path': 'logs', 'invocation_command': 'dbt init transformer', 'no_print': 'None'}
+[0m10:00:03.196615 [debug] [MainThread]: Starter project path: /home/roberto/Documents/lab/airbyte-airflow-datalakehouse-dbt-metabase/.venv/lib/python3.12/site-packages/dbt/include/starter_project
+[0m10:00:03.201047 [info ] [MainThread]: 
+Your new dbt project "transformer" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m10:00:03.201662 [info ] [MainThread]: Setting up your profile.
+[0m10:07:13.211173 [info ] [MainThread]: Profile transformer written to /home/roberto/.dbt/profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m10:07:13.216951 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 430.22873, "process_in_blocks": "63488", "process_kernel_time": 0.39992, "process_mem_max_rss": "126844", "process_out_blocks": "34752", "process_user_time": 4.746857}
+[0m10:07:13.218368 [debug] [MainThread]: Command `dbt init` succeeded at 10:07:13.218098 after 430.23 seconds
+[0m10:07:13.219512 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x761b25923ad0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x761b25511b20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x761b25a28320>]}
+[0m10:07:13.220622 [debug] [MainThread]: Flushing usage events
+[0m10:07:14.042226 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m10:07:25.427253 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x79d020ce5820>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x79d021b10530>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x79d0229a28a0>]}
+
+
+============================== 10:07:25.430846 | 407d55c7-f7cc-46f0-bf18-1c3afd02e6e6 ==============================
+[0m10:07:25.430846 [info ] [MainThread]: Running with dbt=1.11.7
+[0m10:07:25.432215 [debug] [MainThread]: running dbt with arguments {'quiet': 'False', 'introspect': 'True', 'warn_error': 'None', 'send_anonymous_usage_stats': 'True', 'static_parser': 'True', 'use_colors': 'True', 'cache_selected_only': 'False', 'printer_width': '80', 'invocation_command': 'dbt debug', 'use_experimental_parser': 'False', 'log_cache_events': 'False', 'log_format': 'default', 'version_check': 'True', 'log_path': 'logs', 'target_path': 'None', 'partial_parse': 'True', 'profiles_dir': '/home/roberto/.dbt', 'debug': 'False', 'empty': 'None', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'write_json': 'True', 'indirect_selection': 'eager', 'fail_fast': 'False'}
+[0m10:07:25.516030 [info ] [MainThread]: dbt version: 1.11.7
+[0m10:07:25.516648 [info ] [MainThread]: python version: 3.12.3
+[0m10:07:25.517247 [info ] [MainThread]: python path: /home/roberto/Documents/lab/airbyte-airflow-datalakehouse-dbt-metabase/.venv/bin/python
+[0m10:07:25.518155 [info ] [MainThread]: os info: Linux-6.8.0-106-generic-x86_64-with-glibc2.39
+[0m10:07:25.636690 [info ] [MainThread]: Using profiles dir at /home/roberto/.dbt
+[0m10:07:25.637604 [info ] [MainThread]: Using profiles.yml file at /home/roberto/.dbt/profiles.yml
+[0m10:07:25.638383 [info ] [MainThread]: Using dbt_project.yml file at /home/roberto/Documents/lab/airbyte-airflow-datalakehouse-dbt-metabase/dbt_project.yml
+[0m10:07:25.639199 [info ] [MainThread]: adapter type: dremio
+[0m10:07:25.639995 [info ] [MainThread]: adapter version: 1.10.0
+[0m10:07:25.640842 [info ] [MainThread]: Configuration:
+[0m10:07:25.641696 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m10:07:25.642878 [info ] [MainThread]:   dbt_project.yml file [[31mERROR not found[0m]
+[0m10:07:25.645023 [info ] [MainThread]: Required dependencies:
+[0m10:07:25.646598 [debug] [MainThread]: Executing "git --help"
+[0m10:07:25.652168 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]\n           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]\n           [--config-env=<name>=<envvar>] <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone     Clone a repository into a new directory\n   init      Create an empty Git repository or reinitialise an existing one\n\nwork on the current change (see also: git help everyday)\n   add       Add file contents to the index\n   mv        Move or rename a file, a directory, or a symlink\n   restore   Restore working tree files\n   rm        Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect    Use binary search to find the commit that introduced a bug\n   diff      Show changes between commits, commit and working tree, etc\n   grep      Print lines matching a pattern\n   log       Show commit logs\n   show      Show various types of objects\n   status    Show the working tree status\n\ngrow, mark and tweak your common history\n   branch    List, create, or delete branches\n   commit    Record changes to the repository\n   merge     Join two or more development histories together\n   rebase    Reapply commits on top of another base tip\n   reset     Reset current HEAD to the specified state\n   switch    Switch branches\n   tag       Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch     Download objects and refs from another repository\n   pull      Fetch from and integrate with another repository or a local branch\n   push      Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m10:07:25.653104 [debug] [MainThread]: STDERR: "b''"
+[0m10:07:25.654114 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m10:07:25.655186 [info ] [MainThread]: Connection:
+[0m10:07:25.656586 [info ] [MainThread]:   cloud_host: None
+[0m10:07:25.657659 [info ] [MainThread]:   cloud_project_id: None
+[0m10:07:25.658741 [info ] [MainThread]:   software_host: 127.0.0.1
+[0m10:07:25.659705 [info ] [MainThread]:   port: 9047
+[0m10:07:25.660673 [info ] [MainThread]:   use_ssl: False
+[0m10:07:25.661666 [info ] [MainThread]:   environment: None
+[0m10:07:25.662508 [info ] [MainThread]:   UID: admin
+[0m10:07:25.663497 [info ] [MainThread]:   root_path: no_schema
+[0m10:07:25.664362 [info ] [MainThread]:   datalake: $scratch
+[0m10:07:25.665361 [info ] [MainThread]:   database: admin
+[0m10:07:25.666319 [info ] [MainThread]:   schema: admin
+[0m10:07:25.667260 [info ] [MainThread]:   user: admin
+[0m10:07:25.667998 [info ] [MainThread]:   username: admin
+[0m10:07:25.669018 [info ] [MainThread]:   object_storage_source: $scratch
+[0m10:07:25.670393 [info ] [MainThread]:   object_storage_path: no_schema
+[0m10:07:25.671389 [info ] [MainThread]:   dremio_space: admin
+[0m10:07:25.672372 [info ] [MainThread]:   dremio_space_folder: admin
+[0m10:07:25.673558 [info ] [MainThread]: Registered adapter: dremio=1.10.0
+[0m10:07:25.842156 [debug] [MainThread]: Acquiring new dremio connection 'debug'
+[0m10:07:25.843024 [debug] [MainThread]: dremio adapter: Using dremio connection "debug". fetch=False
+[0m10:07:25.843881 [debug] [MainThread]: dremio adapter: On debug: select 1 as id
+[0m10:07:25.844692 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m10:07:25.961051 [debug] [MainThread]: dremio adapter: Connected to db: admin
+[0m10:07:27.042917 [debug] [MainThread]: dremio adapter: Job State = PLANNING
+[0m10:07:27.322091 [debug] [MainThread]: dremio adapter: Job State = COMPLETED
+[0m10:07:27.323776 [debug] [MainThread]: dremio adapter: SQL status: 1 in 1.48 seconds
+[0m10:07:27.330329 [debug] [MainThread]: On debug: Close
+[0m10:07:27.331406 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m10:07:27.336198 [info ] [MainThread]: [31m1 check failed:[0m
+[0m10:07:27.337419 [info ] [MainThread]: Project loading failed for the following reason:
+ project path </home/roberto/Documents/lab/airbyte-airflow-datalakehouse-dbt-metabase/dbt_project.yml> not found
+
+[0m10:07:27.341834 [debug] [MainThread]: Resource report: {"command_name": "debug", "command_success": false, "command_wall_clock_time": 1.9975533, "process_in_blocks": "616", "process_kernel_time": 0.25715, "process_mem_max_rss": "108836", "process_out_blocks": "88", "process_user_time": 2.552495}
+[0m10:07:27.344612 [debug] [MainThread]: Command `dbt debug` failed at 10:07:27.344026 after 2.00 seconds
+[0m10:07:27.345952 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m10:07:27.347265 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x79d021a91be0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x79d0214ff080>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x79d02101ee40>]}
+[0m10:07:27.349279 [debug] [MainThread]: Flushing usage events
+[0m10:07:27.886075 [debug] [MainThread]: An error was encountered while trying to flush usage events

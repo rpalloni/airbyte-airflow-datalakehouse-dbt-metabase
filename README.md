@@ -18,7 +18,13 @@ dremio:31010 (metabase endpoint)
 uv add dbt-dremio
 
 ## run
-`docker compose -f docker-compose-pg-source.yml -f docker-compose-datalakehouse.yml -f docker-compose-airflow.yml -f docker-compose-metabase.yml up --build`
+`docker compose \
+-f docker/docker-compose-pg-source.yml \
+-f docker/docker-compose-datalakehouse.yml \
+-f docker/docker-compose-airflow.yml \
+-f docker/docker-compose-metabase.yml \
+-f docker/docker-compose-transformer.yml \
+up --build`
 
 ## postgres-source 
 Data producer with some test data
@@ -112,6 +118,7 @@ Connection Properties:
 ```
 
 ### dbt config
+https://docs.getdbt.com/docs/local/connect-data-platform/dremio-setup
 ```
 uv add dbt-dremio
 dbt init transformer (a dremio account is needed for the setup)

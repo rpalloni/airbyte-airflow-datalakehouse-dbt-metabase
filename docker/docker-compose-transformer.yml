@@ -1,0 +1,8 @@
+services:
+  transformer:
+    build:
+      context: .
+      dockerfile: Dockerfile.transformer
+    image: transformer:latest
+    container_name: transformer
+    hostname: transformer

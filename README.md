@@ -32,7 +32,7 @@ CREATE TABLE public.users (
 
 INSERT INTO public.users (id, name) VALUES ('U10001', 'Mark');
 INSERT INTO public.users (id, name) VALUES ('U10002', 'Phil');
-INSERT INTO public.users (id, name) VALUES ('U10003', 'John');
+INSERT INTO public.users (id, name) VALUES ('M10003', 'John');
 
 CREATE TABLE public.bookings (
 	id SERIAL PRIMARY KEY,

@@ -18,13 +18,15 @@ dremio:31010 (metabase endpoint)
 uv add dbt-dremio
 
 ## run
-`docker compose \
+```
+docker compose \
 -f docker/docker-compose-pg-source.yml \
 -f docker/docker-compose-datalakehouse.yml \
 -f docker/docker-compose-airflow.yml \
 -f docker/docker-compose-metabase.yml \
 -f docker/docker-compose-transformer.yml \
-up --build`
+up --build
+```
 
 ## postgres-source 
 Data producer with some test data

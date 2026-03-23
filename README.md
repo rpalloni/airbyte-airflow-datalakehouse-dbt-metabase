@@ -76,7 +76,14 @@ Query data from the BI layer
 <img width="1818" height="690" alt="image" src="https://github.com/user-attachments/assets/cd228618-bf33-4282-b077-eb9899c4967c" />
 
 ## dbt
-Transformations on source data using Dremio query engine and stored in Minio
+Transformations on source data using Dremio query engine, tracked in Nessie and stored in Minio
+<img width="1195" height="623" alt="image" src="https://github.com/user-attachments/assets/8e326334-0a9b-49e1-add7-6d47b1b6a55f" />
+
+<img width="1802" height="396" alt="image" src="https://github.com/user-attachments/assets/77fbfe67-f00e-46bb-a875-07019a2c6b1d" />
+
+<img width="1565" height="346" alt="image" src="https://github.com/user-attachments/assets/54949898-2c1e-486d-85c4-a4ec40f01416" />
+
+
 
 ###################################################################################################################################################################################################################################################
 

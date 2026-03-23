@@ -60,7 +60,7 @@ Processing
 <img width="1888" height="462" alt="image" src="https://github.com/user-attachments/assets/1824b1ed-2394-4ad6-a468-26a5a60f34b9" />
 
 ## minio
-Load to storage
+Load to storage and save as iceberg tables
 <img width="1892" height="414" alt="image" src="https://github.com/user-attachments/assets/47c87e14-540b-4209-80dc-a557f44bee72" />
 
 ## nessie
@@ -68,7 +68,7 @@ Table catalog updated
 <img width="1155" height="377" alt="image" src="https://github.com/user-attachments/assets/379a963f-09ec-4f8c-b94b-17b851a9ec38" />
 
 ## dremio
-Configure table catalog and storage
+Configure table catalog and iceberg tables
 <img width="2187" height="517" alt="image" src="https://github.com/user-attachments/assets/32c40eec-ae42-42b6-9d4e-e27e74860bad" />
 
 ## metabase

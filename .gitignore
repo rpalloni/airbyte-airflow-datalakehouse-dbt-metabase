@@ -2,3 +2,6 @@
 .env
 .user.yml
 uv.lock
+__pycache__
+logs/
+plugins/

@@ -5,6 +5,8 @@ description = "end-to-end data pipeline using Airbyte, Airflow, Minio, Nessie, D
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "apache-airflow-providers-docker>=4.5.3",
+    "apache-airflow[celery]>=3.1.8",
     "dbt-core>=1.11.7",
     "dbt-dremio>=1.10.0",
 ]

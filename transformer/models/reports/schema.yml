@@ -1,0 +1,12 @@
+version: 2
+
+models:
+   - name: rpt_user_stats
+     description: "Users stats report"
+     columns:
+       - name: user_name
+         description: "User name"
+       - name: tot_bookings
+         description: "Total number of bookings placed"
+       - name: tot_amount
+         description: "Total amount spent"

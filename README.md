@@ -5,7 +5,7 @@ https://docs.airbyte.com/platform/using-airbyte/getting-started/oss-quickstart
 * localhost:8000 airbyte
 * localhost:8081 airflow
 * localhost:3000 metabase
-* localhost:9001 minio (create bucket raw-data)
+* localhost:9001 minio *(create bucket: raw-data)*
 * localhost:9047 dremio
 * localhost:19120 nessie
 

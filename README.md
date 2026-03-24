@@ -91,6 +91,11 @@ Transformations on source data using Dremio query engine, tracked in Nessie and 
 
 <img width="1565" height="346" alt="image" src="https://github.com/user-attachments/assets/54949898-2c1e-486d-85c4-a4ec40f01416" />
 
+## airbyte 
+DAG orchestrating the dbt transformation and updated data
+<img width="1879" height="688" alt="image" src="https://github.com/user-attachments/assets/575b94b4-f7f1-4767-b702-a17e504d6c9c" />
+
+<img width="1353" height="711" alt="image" src="https://github.com/user-attachments/assets/14e0ca08-69b9-4565-aee0-c092b1766691" />
 
 
 ###################################################################################################################################################################################################################################################

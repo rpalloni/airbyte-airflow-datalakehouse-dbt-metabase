@@ -75,13 +75,14 @@ x-airflow-common:
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
     # The following line can be used to set a custom config file, stored in the local config folder
     AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
-    AIRFLOW__LOGGING__LOGGING_LEVEL: WARNING
+    AIRFLOW__LOGGING__LOGGING_LEVEL: INFO
     PYTHONWARNINGS: ignore::DeprecationWarning,ignore::SyntaxWarning
   volumes:
     - ${AIRFLOW_PROJ_DIR:-..}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-..}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-..}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-..}/plugins:/opt/airflow/plugins
+    - /var/run/docker.sock:/var/run/docker.sock # allow airflow worker to access docker socket to reach the Docker engine and create the container from the image
   user: "${AIRFLOW_UID:-50000}:0"
   networks:
     - kind
@@ -102,7 +103,7 @@ services:
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
     volumes:
-      - postgres-db-volume:/var/lib/postgresql/data
+      - postgres-airbyte:/var/lib/postgresql/data
     networks:
       - airflow-network
     healthcheck:
@@ -197,6 +198,12 @@ services:
       # Required to handle warm shutdown of the celery workers properly
       # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
       DUMB_INIT_SETSID: "0"
+      DREMIO_SPACE: ${DREMIO_SPACE}
+      DREMIO_SPACE_FOLDER: ${DREMIO_SPACE_FOLDER}
+      OBJECT_STORAGE_SOURCE: ${OBJECT_STORAGE_SOURCE}
+      OBJECT_STORAGE_PATH: ${OBJECT_STORAGE_PATH}
+      DREMIO_USER: ${DREMIO_USER}
+      DREMIO_PASSWORD: ${DREMIO_PASSWORD}
     restart: always
     depends_on:
       <<: *airflow-common-depends-on
@@ -353,7 +360,7 @@ services:
         condition: service_completed_successfully
 
 volumes:
-  postgres-db-volume:
+  postgres-airbyte:
      
 networks:
   kind:

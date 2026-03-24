@@ -6,6 +6,7 @@ services:
     image: transformer:latest
     container_name: transformer
     environment:
+      # needed for standalone run testing
       DREMIO_SPACE: ${DREMIO_SPACE}
       DREMIO_SPACE_FOLDER: ${DREMIO_SPACE_FOLDER}
       OBJECT_STORAGE_SOURCE: ${OBJECT_STORAGE_SOURCE}

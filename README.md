@@ -2,6 +2,7 @@
 https://docs.airbyte.com/platform/using-airbyte/getting-started/oss-quickstart
 
 ## components
+Docker exposes the following ports to the host, so components UI are available at:
 * localhost:8000 airbyte
 * localhost:8081 airflow
 * localhost:3000 metabase

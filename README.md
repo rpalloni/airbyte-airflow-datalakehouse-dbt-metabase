@@ -1,4 +1,5 @@
 ## Architecture diagram
+```
                           _______________________________________________________
                          |                 ______________________    __________  |
                          | DataLakeHouse  |           |          |  |          | |
@@ -13,6 +14,7 @@
                          |               Transform/Orchestration                 |
                          |                   (dbt / Airflow)                     |
                          |_______________________________________________________|
+```
 
 ## Airbyte local setup 
 https://docs.airbyte.com/platform/using-airbyte/getting-started/oss-quickstart

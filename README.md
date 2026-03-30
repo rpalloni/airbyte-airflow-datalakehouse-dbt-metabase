@@ -1,7 +1,23 @@
+## Architecture diagram
+                          _______________________________________________________
+                         |                 ______________________    __________  |
+                         | DataLakeHouse  |           |          |  |          | |
+ ____________            |  ___________   |           |          |  |          | |
+|    Data    |           | |           |  |  Table    | Table    |  |  Query   | <<    BI
+|   Source   |  >> E >>  | | Storage   |  |  Format   | Catalog  |  |  Engine  | << (Metabase)
+| (postgres) | (Airbyte) | | (Minio)   |  | (Iceberg) | (Nessie) |  | (Dremio) | <<
+|____________|           | |___________|  |           |          |  |          | |
+                         |                |___________|__________|  |__________| |
+                         |_______________________________________________________|
+                         |                          TL                           |
+                         |               Transform/Orchestration                 |
+                         |                   (dbt / Airflow)                     |
+                         |_______________________________________________________|
+
 ## Airbyte local setup 
 https://docs.airbyte.com/platform/using-airbyte/getting-started/oss-quickstart
 
-## components
+## Components
 Docker exposes the following ports to the host, so components UI are available at:
 * localhost:8000 airbyte
 * localhost:8081 airflow
@@ -10,15 +26,21 @@ Docker exposes the following ports to the host, so components UI are available a
 * localhost:9047 dremio
 * localhost:19120 nessie
 
-## plugins
+## Plugins
 dremio-metabase custom plugin installed in the custom metabase image (https://github.com/Baoqi/metabase-dremio-driver/releases)
 
 dremio:31010 (metabase endpoint)
 
 ## dependencies
-uv add dbt-dremio
+`uv add dbt-dremio`
 
 ## run
+0) Run containers creation
+1) Create the bucket in minio and the tables in source db. 
+2) Create the Airbyte connection from Postgres source to S3 Data Lake destination.
+3) Create the Dremio account (used in dbt) and the Nessie connection
+NOTE: Airflow scheduled to run at 15' and 45' each hour and Airbyte to run every 30' (:00, :30 each hour)
+
 ```
 docker compose \
 -f docker/docker-compose-pg-source.yml \
@@ -29,6 +51,12 @@ docker compose \
 up --build
 ```
 
+Enter transformer to check dbt runs ok:
+```
+docker compose -f docker/docker-compose-transformer.yml exec transformer bash
+uv run dbt run
+uv run dbt test
+```
 ## postgres-source 
 Data producer with some test data
 
@@ -36,12 +64,13 @@ Data producer with some test data
 CREATE TABLE public.users (
 	id VARCHAR(10) PRIMARY KEY,
 	name VARCHAR(20) not null,
-	created_at TIMESTAMP DEFAULT NOW()
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() -- utc
 );
 
 INSERT INTO public.users (id, name) VALUES ('U10001', 'Mark');
 INSERT INTO public.users (id, name) VALUES ('U10002', 'Phil');
 INSERT INTO public.users (id, name) VALUES ('M10003', 'John');
+INSERT INTO public.users (id, name) VALUES ('M10004', 'Jack');
 
 CREATE TABLE public.bookings (
 	id SERIAL PRIMARY KEY,
@@ -50,12 +79,13 @@ CREATE TABLE public.bookings (
 	quantity INT NOT NULL,
 	total_amount NUMERIC(10, 2) NOT null,
 	user_id VARCHAR references users(id),
-	created_at TIMESTAMP DEFAULT NOW()
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() -- utc
 );
 
 INSERT INTO public.bookings (booking_date, service_id, quantity, total_amount, user_id) VALUES ('2023-01-01', 101, 3, 450.00, 'U10001');
 INSERT INTO public.bookings (booking_date, service_id, quantity, total_amount, user_id) VALUES ('2023-02-01', 102, 1, 320.00, 'U10001');
 INSERT INTO public.bookings (booking_date, service_id, quantity, total_amount, user_id) VALUES ('2023-03-01', 103, 4, 720.00, 'U10002');
+...
 ```
 
 ## airbyte
@@ -111,7 +141,7 @@ Name: nessie
 Nessie Endpoint URL: http://nessie:19120/api/v2
 Nessie Auth Type: none
 <Storage> 
-AWS Root Path: warehouse
+AWS Root Path: raw-data
 Auth Type: AWS Access Key
 AWS Access Key: admin
 AWS Access Secret: password

@@ -6,19 +6,44 @@ models:
      columns:
        - name: user_id
          description: "Unique user identifier as text"
+         tests:
+           - unique
+           - not_null
        - name: user_name
          description: "Name of the user"
+         tests:
+           - not_null
+       - name: source
+         description: "User acquisition channel derived from user_id prefix"
+         tests:
+           - accepted_values:
+               values: ['Marketplace', 'Store', 'Unknown']
        - name: created_ts
          description: "User creation timestamp"
        - name: sync_ts
          description: "User data airbyte sync timestamp"
-         
+
    - name: fct_bookings
      description: "Booking facts"
      columns:
        - name: booking_id
          description: "Unique booking identifier as bigint"
+         tests:
+           - unique
+           - not_null
        - name: booking_dt
          description: "Date of the booking"
+       - name: currency
+         description: "Booking currency"
+         tests:
+           - accepted_values:
+               values: ['EUR']
+       - name: user_id
+         description: "FK to dim_users"
+         tests:
+           - not_null
+           - relationships:
+               to: ref('dim_users')
+               field: user_id
        - name: sync_ts
          description: "User data airbyte sync timestamp"

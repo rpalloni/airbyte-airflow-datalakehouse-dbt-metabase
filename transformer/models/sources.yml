@@ -3,6 +3,10 @@ version: 2
 sources:
   - name: pg-data
     schema: pg-data
+    loaded_at_field: _airbyte_extracted_at
+    freshness:
+      warn_after: {count: 2, period: hour}
+      # error_after: {count: 6, period: hour}
     tables:
       - name: pg_users
         description: "Postgres backend users data"

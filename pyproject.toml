@@ -11,3 +11,9 @@ dependencies = [
     "dbt-core>=1.11.7",
     "dbt-dremio>=1.10.0",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.15.8",
+]

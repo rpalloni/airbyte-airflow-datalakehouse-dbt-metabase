@@ -6,7 +6,14 @@ models:
      columns:
        - name: user_name
          description: "User name"
+         tests:
+           - unique
+           - not_null
        - name: tot_bookings
          description: "Total number of bookings placed"
+         tests:
+           - not_null
        - name: tot_amount
          description: "Total amount spent"
+         tests:
+            - not_null

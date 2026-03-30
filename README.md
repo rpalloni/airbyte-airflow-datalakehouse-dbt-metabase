@@ -26,10 +26,13 @@ Docker exposes the following ports to the host, so components UI are available a
 * localhost:9047 dremio
 * localhost:19120 nessie
 
-## Plugins
-dremio-metabase custom plugin installed in the custom metabase image (https://github.com/Baoqi/metabase-dremio-driver/releases)
+## plugins
+dremio-metabase custom plugin installed in the custom metabase image \ (https://github.com/Baoqi/metabase-dremio-driver/releases)
 
 dremio:31010 (metabase endpoint)
+
+<img width="701" height="1043" alt="image" src="https://github.com/user-attachments/assets/628db25e-8212-4580-9b7b-ad0997373277" />
+
 
 ## dependencies
 `uv add dbt-dremio`
@@ -50,6 +53,8 @@ docker compose \
 -f docker/docker-compose-transformer.yml \
 up --build
 ```
+local dbt run: `uv run dbt run`
+
 
 Enter transformer to check dbt runs ok:
 ```

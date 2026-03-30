@@ -28,8 +28,8 @@ Docker exposes the following ports to the host, so components UI are available a
 * localhost:9047 dremio
 * localhost:19120 nessie
 
-## plugins
-dremio-metabase custom plugin installed in the custom metabase image \ 
+## Plugins
+dremio-metabase custom plugin installed in the custom metabase image
 (https://github.com/Baoqi/metabase-dremio-driver/releases)
 
 dremio:31010 (metabase endpoint)
@@ -37,11 +37,11 @@ dremio:31010 (metabase endpoint)
 <img width="701" height="1043" alt="image" src="https://github.com/user-attachments/assets/628db25e-8212-4580-9b7b-ad0997373277" />
 
 
-## dependencies
+## Dependencies
 `uv add dbt-dremio`
 https://docs.getdbt.com/docs/local/connect-data-platform/dremio-setup
 
-## run
+## Run
 0) Run containers creation
 1) Create the bucket in minio and the tables in source db. 
 2) Create the Airbyte connection from Postgres source to S3 Data Lake destination.

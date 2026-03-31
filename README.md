@@ -21,12 +21,12 @@ https://docs.airbyte.com/platform/using-airbyte/getting-started/oss-quickstart
 
 ## Components
 Docker exposes the following ports to the host, so components UI are available at:
-* localhost:8000 airbyte
-* localhost:8081 airflow
-* localhost:3000 metabase
-* localhost:9001 minio *(create bucket: raw-data)*
-* localhost:9047 dremio
-* localhost:19120 nessie
+* `localhost:8000` airbyte
+* `localhost:8081` airflow
+* `localhost:3000` metabase
+* `localhost:9001` minio *(create bucket: raw-data)*
+* `localhost:9047` dremio
+* `localhost:19120` nessie
 
 ## Plugins
 dremio-metabase custom plugin installed in the custom metabase image
@@ -42,10 +42,11 @@ dremio:31010 (metabase endpoint)
 https://docs.getdbt.com/docs/local/connect-data-platform/dremio-setup
 
 ## Run
-0) Run containers creation
-1) Create the bucket in minio and the tables in source db. 
-2) Create the Airbyte connection from Postgres source to S3 Data Lake destination.
-3) Create the Dremio account (used in dbt) and the Nessie connection
+0) Create the `.env` file in docker repo
+1) Run containers creation
+2) Create the bucket in minio and the tables in source db. 
+3) Create the Airbyte connection from Postgres source to S3 Data Lake destination.
+4) Create the Dremio account (used in dbt) and the Nessie connection
 NOTE: Airflow scheduled to run at 15' and 45' each hour and Airbyte to run every 30' (:00, :30 each hour)
 
 ```
@@ -57,15 +58,7 @@ docker compose \
 -f docker/docker-compose-transformer.yml \
 up --build
 ```
-local dbt run: `uv run dbt run`
 
-
-Enter transformer to check dbt runs ok:
-```
-docker compose -f docker/docker-compose-transformer.yml exec transformer bash
-uv run dbt run
-uv run dbt test
-```
 ## postgres-source 
 Data producer with some test data
 
@@ -131,12 +124,21 @@ Transformations on source data using Dremio query engine, tracked in Nessie and 
 
 <img width="1565" height="346" alt="image" src="https://github.com/user-attachments/assets/54949898-2c1e-486d-85c4-a4ec40f01416" />
 
-## airbyte 
+Enter transformer to check dbt runs ok:
+```
+docker compose -f docker/docker-compose-transformer.yml exec transformer bash
+uv run dbt run
+uv run dbt test
+```
+
+## airflow
 DAG orchestrating the dbt transformation and updated data
 <img width="1879" height="688" alt="image" src="https://github.com/user-attachments/assets/575b94b4-f7f1-4767-b702-a17e504d6c9c" />
 
 <img width="1353" height="711" alt="image" src="https://github.com/user-attachments/assets/14e0ca08-69b9-4565-aee0-c092b1766691" />
 
+Check dag tests:
+`uv run pytest tests -v`
 
 ###################################################################################################################################################################################################################################################
 

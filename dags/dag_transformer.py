@@ -24,10 +24,10 @@ dag = DAG(
 # the DockerOperator() is developed to create a new docker container on a docker server (local or remote server), and not to manage an existing container running.
 # need to create the transformer image first and then create the new container based on that image the moment DockerOperator() is called during DAG execution
 DOCKER_OPERATOR_DEFAULTS = {
-    'image': 'transfomer',
+    'image': 'transformer',
     'docker_url': 'unix://var/run/docker.sock', # airflow worker access to docker socket to reach the Docker engine and create the container from the transformer image
     'network_mode': 'kind', # allow transformer container and other containers communication
-    'autoremove': 'success', # automatically remove the container after it exits (comment to see the creation of a new container at each run)
+    'auto_remove': 'success', # automatically remove the container after it exits (comment to see the creation of a new container at each run)
     'mount_tmp_dir': False,
     'environment': {
         'DREMIO_SPACE': os.environ.get('DREMIO_SPACE'),

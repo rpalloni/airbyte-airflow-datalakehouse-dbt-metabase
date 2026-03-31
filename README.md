@@ -15,6 +15,8 @@
                          |                   (dbt / Airflow)                     |
                          |_______________________________________________________|
 ```
+Dremio serves as the Query and Semantic Layer. 
+It connects to the MinIO data lake, tracks metadata via Nessie and provides a SQL interface for both dbt (transformation) and Metabase (visualization).
 
 ## Airbyte local setup 
 https://docs.airbyte.com/platform/using-airbyte/getting-started/oss-quickstart

@@ -29,7 +29,7 @@ Docker exposes the following ports to the host, so components UI are available a
 * `localhost:19120` nessie
 
 ## Plugins
-dremio-metabase custom plugin installed in the custom metabase image
+dremio-metabase custom plugin installed in the custom metabase image \
 (https://github.com/Baoqi/metabase-dremio-driver/releases)
 
 dremio:31010 (metabase endpoint)
@@ -38,7 +38,7 @@ dremio:31010 (metabase endpoint)
 
 
 ## Dependencies
-`uv add dbt-dremio`
+`uv add dbt-dremio` \
 https://docs.getdbt.com/docs/local/connect-data-platform/dremio-setup
 
 ## Run
@@ -92,37 +92,46 @@ INSERT INTO public.bookings (booking_date, service_id, quantity, total_amount, u
 
 ## airbyte
 Create source, destination and connection
+
 <img width="1899" height="730" alt="image" src="https://github.com/user-attachments/assets/2fdca6b0-5ddb-48b4-a2b1-eaa10cf891b5" />
 
-Sync details
+Set sync details
+
 <img width="1891" height="885" alt="image" src="https://github.com/user-attachments/assets/87161e9e-8602-472e-8aaf-d11ff317c92e" />
 
 Processing
+
 <img width="1888" height="462" alt="image" src="https://github.com/user-attachments/assets/1824b1ed-2394-4ad6-a468-26a5a60f34b9" />
 
 ## minio
 Load to storage and save as iceberg tables
+
 <img width="1892" height="414" alt="image" src="https://github.com/user-attachments/assets/47c87e14-540b-4209-80dc-a557f44bee72" />
 
 ## nessie
 Table catalog updated
+
 <img width="1155" height="377" alt="image" src="https://github.com/user-attachments/assets/379a963f-09ec-4f8c-b94b-17b851a9ec38" />
 
 ## dremio
 Configure table catalog and iceberg tables
+
 <img width="2187" height="517" alt="image" src="https://github.com/user-attachments/assets/32c40eec-ae42-42b6-9d4e-e27e74860bad" />
 
 ## metabase
 Query data from the BI layer
+
 <img width="1818" height="690" alt="image" src="https://github.com/user-attachments/assets/cd228618-bf33-4282-b077-eb9899c4967c" />
 
 ## dbt
 Transformations on source data using Dremio query engine, tracked in Nessie and stored in Minio
+
 <img width="1195" height="623" alt="image" src="https://github.com/user-attachments/assets/8e326334-0a9b-49e1-add7-6d47b1b6a55f" />
 
 <img width="1802" height="396" alt="image" src="https://github.com/user-attachments/assets/77fbfe67-f00e-46bb-a875-07019a2c6b1d" />
 
 <img width="1565" height="346" alt="image" src="https://github.com/user-attachments/assets/54949898-2c1e-486d-85c4-a4ec40f01416" />
+<br><br>
 
 Enter transformer to check dbt runs ok:
 ```
@@ -133,11 +142,13 @@ uv run dbt test
 
 ## airflow
 DAG orchestrating the dbt transformation and updated data
+
 <img width="1879" height="688" alt="image" src="https://github.com/user-attachments/assets/575b94b4-f7f1-4767-b702-a17e504d6c9c" />
 
 <img width="1353" height="711" alt="image" src="https://github.com/user-attachments/assets/14e0ca08-69b9-4565-aee0-c092b1766691" />
+<br><br>
 
-Check dag tests:
+Check dag tests: \
 `uv run pytest tests -v`
 
 ###################################################################################################################################################################################################################################################

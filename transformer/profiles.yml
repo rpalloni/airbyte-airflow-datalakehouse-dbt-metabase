@@ -2,6 +2,7 @@ transformer:
   target: dev
   outputs:
     dev:
+      # default target
       type: dremio
       dremio_space: "{{env_var('DREMIO_SPACE')}}"
       dremio_space_folder: "{{env_var('DREMIO_SPACE_FOLDER')}}"
@@ -21,7 +22,7 @@ transformer:
       object_storage_path: "{{env_var('CI_OBJECT_STORAGE_PATH')}}"
       user: "{{env_var('CI_DREMIO_USER')}}"
       password: "{{env_var('CI_DREMIO_PASSWORD')}}"
-      software_host: dremio
+      software_host: localhost # runner host
       port: 9047
       threads: 1
       use_ssl: false

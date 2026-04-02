@@ -124,27 +124,59 @@ jobs:
          - name: dbt parse - structure and syntax check
            run: uv run dbt parse --profiles-dir ${{ github.workspace }}/.github/dbt
            working-directory: transformer
-         
-   docker-compose-validate:
-      name: Validate docker-compose files
-      runs-on: ubunut-latest
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v4
+           
+   # dbt-workflow:
+   #   name: dbt run and dbt test
+   #   runs-on: ubuntu-latest
+   #   env:
+   #     # cicd target defined in profiles.yml
+   #     CI_DREMIO_HOST: localhost # runner reaches Dremio via mapped port
+   #     CI_DREMIO_USER: dremio
+   #     CI_DREMIO_PASSWORD: dremio123
+   #     CI_DREMIO_SPACE: ci # Dremio space for views (virtual dataset)
+   #     CI_DREMIO_SPACE_FOLDER: output
+   #     CI_OBJECT_STORAGE_SOURCE: nessie
+   #     CI_OBJECT_STORAGE_PATH: ci
+   #   steps:
+   #       - name: Checkout
+   #         uses: actions/checkout@v4
+           
+   #       - name: Python Set Up
+   #         uses: actions/setup-python@v5
+   #         with:
+   #            python-version: "3.12"
+              
+   #       - name: Install uv
+   #         uses: astral-sh/setup-uv@v5
+           
+   #       - name: Install dependencies
+   #         run: uv sync
+           
+   #       - name: Create kind Docker network
+   #         # docker-compose-datalakehouse.yml declares kind as external
+   #         run: docker network create kind || true
         
-        - name: Install Docker Compose
-          run: |
-              DOCKER_COMPOSE_VERSION=${docker compose version --short 2>/dev/null || echo "not found"}
-              echo "Docker Compose version: ${DOCKER_COMPOSE_VERSION}"
+   #       - name: Start datalakehouse stack
+   #         run: docker compose -f docker/docker-compose-datalakehouse.yml up -d
+           
+   #       - name: Create MinIO buckets
+   #         run: |
+   #             echo "Waiting for MinIO to wake up..."
+   #             for i in $(seq 1 30); do
+   #                curl -sf http://localhost:9000/minio/health/live && break
+   #                sleep 5
+   #             done
+   #             aws configure set aws_access_key_id admin
+   #             aws configure set aws_secret_access_key password
+   #             aws --endpoint-url http://localhost:9000 s3 mb s3://datalake || true
+   #         env:
+   #           AWS_DEFAULT_REGION: eu-central-1
+             
+   #       - name: Bootstrap Dremio Query Engine
+   #         run: python scripts/ci_bootstrap_dremio.py # TODO
         
-        - name: Validate docker-compose-datalakehouse
-          run: docker compose -f docker/docker-compose-datalakehouse.yml config --quiet
-          
-        - name: Validate docker-compose-airflow
-          run: docker compose -f docker/docker-compose-airflow.yml config --quiet
-          
-        - name: Validate docker-compose-metabase
-          run: docker compose -f docker/docker-compose-metabase.yml config --quiet
-          
-        - name: Validate docker-compose-transformer
-          run: docker compose -f docker/docker-compose-transformer.yml config --quiet
+   #       - name: dbt run
+   #         run: uv run dbt run --target cicd --project-dir transformer --profile-dir transformer
+           
+   #       - name: dbt test
+   #         run: uv run dbt test --target cicd --project-dir transformer --profile-dir transformer

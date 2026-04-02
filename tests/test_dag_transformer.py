@@ -1,4 +1,3 @@
-import pytest
 from dags.dag_transformer import dag
 from airflow.providers.docker.operators.docker import DockerOperator
 

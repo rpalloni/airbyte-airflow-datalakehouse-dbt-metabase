@@ -1,0 +1,150 @@
+name: CI
+
+on:
+   push:
+      branches: ["**"]
+      paths-ignore:
+        - "README.md"
+        - "**/README.md"
+   pull_request:
+      branches: ["**"]
+      paths-ignore:
+        - "README.md"
+        - "**/README.md"
+      
+jobs:
+   lint:
+      name: Linting
+      runs-on: ubuntu-latest
+      steps:
+         - name: Checkout
+           uses: actions/checkout@v4
+           
+         - name: Python Set Up
+           uses: actions/setup-python@v5
+           with:
+              python-version: "3.12"
+              
+         - name: Install uv
+           uses: astral-sh/setup-uv@v5
+           
+         - name: Install dependencies
+           run: uv sync --group dev
+           
+         - name: Ruff check
+           run: uv run ruff check .
+           
+         - name: Ruff format check
+           run: uv run ruff format --check .
+
+   test:
+       name: DAG unit tests
+       runs-on: ubuntu-latest
+       env:
+          AIRFLOW_HOME: /tmp/airflow
+          AIRFLOW__CORE__UNIT_TEST_MODE: "True"
+          AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+          AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: sqlite:////tmp/airflow/airflow.db
+          AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+          # DAG env vars required by DockerOperator tasks (dummy values for unit tests)
+          DREMIO_SPACE: ci_space
+          DREMIO_SPACE_FOLDER: ci_folder
+          OBJECT_STORAGE_SOURCE: ci_storage
+          OBJECT_STORAGE_PATH: ci_path
+          DREMIO_USER: ci_user
+          DREMIO_PASSWORD: ci_password
+          PYTHONPATH: ${{ github.workspace }}
+       steps:
+         - name: Checkout
+           uses: actions/checkout@v4
+           
+         - name: Python Set Up
+           uses: actions/setup-python@v5
+           with:
+              python-version: "3.12"
+              
+         - name: Install uv
+           uses: astral-sh/setup-uv@v5
+           
+         - name: Install dependencies
+           run: uv sync --group dev
+        
+         - name: Initialise Airflow DB
+           run: uv run airflow db migrate
+           
+         - name: Run pytest
+           run: uv run pytest tests -v --tb=short
+           
+   dbt-validate:
+      name: dbt project validation
+      runs-on: ubuntu-latest
+      defaults:
+         run:
+            working-directory: transformer
+      env:
+        # dbt-dremio profile target
+         DBT_PROFILES_DIR: ${{ github.workspace }}/.github/dbt
+      steps:
+         - name: Checkout
+           uses: actions/checkout@v4
+           
+         - name: Python Set Up
+           uses: actions/setup-python@v5
+           with:
+              python-version: "3.12"
+              
+         - name: Install uv
+           uses: astral-sh/setup-uv@v5
+           
+         - name: Install dependencies
+           run: uv sync
+           working-directory: ${{ github.workspace }}
+           
+         - name: Write CI dbt profile
+           run: |
+               mkdir -p ${{ github.workspace }}/.github/dbt
+               cat > ${{ github.workspace }}/.github/dbt/profiles.yml << 'EOF'
+               transformer:
+                 target: ci
+                 outputs:
+                   ci:
+                     type: dremio
+                     use_ssl: false
+                     software_host: localhost
+                     port: 31010
+                     user: ci_user
+                     password: ci_password
+                     object_storage_source: ci_storage
+                     object_storage_path: ci_path
+                     dremio_space: ci_space
+                     dremio_space_folder: ci_folder
+                     threads: 1
+               EOF
+         # validation of all models, sources, schemas and macros without execution (no db needed)
+         - name: dbt parse - structure and syntax check
+           run: uv run dbt parse --profiles-dir ${{ github.workspace }}/.github/dbt
+           working-directory: transformer
+         
+   docker-compose-validate:
+      name: Validate docker-compose files
+      runs-on: ubunut-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+        
+        - name: Install Docker Compose
+          run: |
+              DOCKER_COMPOSE_VERSION=${docker compose version --short 2>/dev/null || echo "not found"}
+              echo "Docker Compose version: ${DOCKER_COMPOSE_VERSION}"
+        
+        - name: Validate docker-compose-datalakehouse
+          run: docker compose -f docker/docker-compose-datalakehouse.yml config --quiet
+          
+        - name: Validate docker-compose-airflow
+          run: docker compose -f docker/docker-compose-airflow.yml config --quiet
+          
+        - name: Validate docker-compose-metabase
+          run: docker compose -f docker/docker-compose-metabase.yml config --quiet
+          
+        - name: Validate docker-compose-transformer
+          run: docker compose -f docker/docker-compose-transformer.yml config --quiet

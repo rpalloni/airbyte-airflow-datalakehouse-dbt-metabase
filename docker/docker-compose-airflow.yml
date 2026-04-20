@@ -106,7 +106,7 @@ services:
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
     volumes:
-      - postgres-airbyte:/var/lib/postgresql/data
+      - postgres-airflow:/var/lib/postgresql/data
     networks:
       - airflow-network
     healthcheck:
@@ -363,7 +363,7 @@ services:
         condition: service_completed_successfully
 
 volumes:
-  postgres-airbyte:
+  postgres-airflow:
      
 networks:
   kind:

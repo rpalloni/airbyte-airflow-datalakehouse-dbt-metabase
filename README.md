@@ -1,4 +1,8 @@
 ## Architecture diagram
+
+<img width="2816" height="1536" alt="dlh" src="https://github.com/user-attachments/assets/e2069062-edb7-4cee-95d1-40e3f50119ae" />
+
+
 ```
                           _______________________________________________________
                          |                 ______________________    __________  |

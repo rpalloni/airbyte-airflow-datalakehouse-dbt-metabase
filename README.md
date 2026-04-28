@@ -18,7 +18,8 @@
                          |               Transform/Orchestration                 |
                          |                   (dbt / Airflow)                     |
                          |_______________________________________________________|
-</details>```
+```
+</details>
 	
 Dremio serves as the Query and Semantic Layer. 
 It connects to the MinIO data lake, tracks metadata via Nessie and provides a SQL interface for both dbt (transformation) and Metabase (visualization).

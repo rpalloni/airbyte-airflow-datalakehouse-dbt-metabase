@@ -24,7 +24,7 @@
 </details>
 
 **Client-Server model architecture:** \
-Dremio serves as the Query and Semantic Layer. 
+Dremio serves as the Query and Semantic Layer, created as an infrastructure component on a dedicated container. \
 It connects to the MinIO data lake, tracks metadata via Nessie and provides a SQL interface for both dbt (transformation) and Metabase (visualization).
 
 ## Airbyte local setup 
